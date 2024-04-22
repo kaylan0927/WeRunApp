@@ -1,7 +1,90 @@
-﻿@page "/runlog"
+@page "/Goals"
 
-<PageTitle>Run Log</PageTitle>
+<PageTitle>Goals</PageTitle>
+
+<h1>Your Goals</h1>
+<FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
+
+    <p>
+        <h3>Your weekly goal.</h3>
+        <FluentNumberField @bind-Value="weekDist" Label="Distance in miles" />
+        <FluentNumberField @bind-Value="weekTime" Label="Run Time in hours" />
+        <br />
+        Your goal pace is @weekPace miles per hour.
+        <br />
+    </p>
+    <FluentDivider Style="height: 50px;" Role="DividerRole.Presentation" Orientation="Orientation.Vertical"></FluentDivider>
+    
+    <br />
+
+    <p>
+        <h3>Your monthly goal.</h3>
+        <FluentNumberField @bind-Value="monthDist" Label="Distance in miles" />
+        <FluentNumberField @bind-Value="monthTime" Label="Run Time in hours" />
+        <br />
+        Your goal pace is @monthPace miles per hour.
+        <br />
+    </p>
+</FluentStack>
+
+<FluentDivider Style="width: 50%;" Role="DividerRole.Presentation"></FluentDivider>
+
+<h1>Your progress</h1>
+
+
+<FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center">
+
+    <p>
+        <h3>Your weekly progress.</h3>
+    <p>You ran @weekDist miles this week</p>
+    <FluentStack>
+        <FluentProgressRing Min="0" Max="100" Value="20" style="width: 82px; height: 82px;" Color="Green"></FluentProgressRing>
+
+    </FluentStack>
+    <br />
+
+    <p>You ran @weekTime hours this week</p>
+   
+        <FluentStack>
+            <FluentProgressRing Min="0" Max="100" Value="20" style="width: 82px; height: 82px;"></FluentProgressRing>
+
+        </FluentStack>
+    
+    </p>
+    <FluentDivider Style="height: 50px;" Role="DividerRole.Presentation" Orientation="Orientation.Vertical"></FluentDivider>
+    <p>
+        <h3>Your weekly progress.</h3>
+    <p>You ran @monthDist miles this month</p>
+    <FluentStack>
+        <FluentProgressRing Min="0" Max="100" Value="20" style="width: 82px; height: 82px;" Color="Green"></FluentProgressRing>
+
+    </FluentStack>
+    <br />
+
+    <p>You ran @monthTime hours this month</p>
+
+    <FluentStack>
+        <FluentProgressRing Min="0" Max="100" Value="75" style="width: 82px; height: 82px;"></FluentProgressRing>
+
+    </FluentStack>
+
+    </p>
+   
+</FluentStack>
+
+
+
+
+
 
 @code {
-  
+    private double weekDist { get; set; }
+    private double weekTime { get; set; }
+    private double weekPace => weekDist / weekTime;
+
+    private double monthDist { get; set; }
+    private double monthTime { get; set; }
+    private double monthPace => monthDist / monthTime;
+
+    
 }
