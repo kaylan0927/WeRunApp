@@ -1,17 +1,45 @@
 ﻿@page "/login"
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Components.Authorization
+@inject SignInManager<IdentityUser> SignInManager
+@inject NavigationManager NavigationManager
 
 <PageTitle>Login</PageTitle>
 
+<EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
 <h1>Login</h1>
 <div>
     <span>Username</span>
    <!--- <span> or email</span> -->
-   <input>
+    <InputText @bind-Value="loginModel.Email" />
    <span>Password</span>
-   <input />
+    <InputText @bind-Value="loginModel.Password" />
 </div>
 
+    <button type="submit">Log in</button>
+</EditForm>
 
 @code {
-   
+    private LoginModel loginModel = new LoginModel();
+
+    private async Task HandleLogin()
+    {
+        var result = await SignInManager.PasswordSignInAsync(loginModel.Email, loginModel.Password, false, false);
+        if (result.Succeeded)
+        {
+            NavigationManager.NavigateTo("/HomeLogIn");
+        }
+        else
+        {
+            // Handle failed login
+            
+        }
+    }
+
+    public class LoginModel
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
 }
+
